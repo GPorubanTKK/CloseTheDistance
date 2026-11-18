@@ -5,12 +5,11 @@ struct WidgetsView: View {
     
     var body: some View {
         GeometryReader { gp in
-            VStack {
-                Text("Activity Center").bold()
-                ThisOrThat().padding().frame(height: gp.size.height / 2)
-                VStack {
-                    Text("Daily Doodle")
-                    Text("Coming Soon")
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    Text("Activity Center").bold()
+                    ThisOrThat().padding().frame(height: gp.size.height / 2)
+                    DailyDoodle().padding().frame(height: gp.size.height / 2)
                 }
             }
         }
