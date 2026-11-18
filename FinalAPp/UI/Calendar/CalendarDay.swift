@@ -6,7 +6,7 @@ struct CalendarDay : View {
     
     var body: some View {
         ZStack {
-            Circle().foregroundStyle(.gray).shadow(radius: 1)
+            Circle().foregroundStyle(.gray.opacity(0.2)).shadow(radius: 1)
             VStack {
                 Text("\(day)").font(.system(size: 10))
                 Image(systemName: dayType.rawValue).font(.system(size: 10))

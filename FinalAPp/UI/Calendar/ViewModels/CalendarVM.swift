@@ -1,18 +1,29 @@
-import Foundation
 public import Combine
+import Foundation
+
 class CalendarVM: ObservableObject {
-    @Published var month: String = months[0]
-    @Published var days: [Day] = (1...31).map { num in Day(day: num, status: DayType.Date) }
-    @Published var dates: [Idea] = [Idea(title: "Cook a meal", desc: "Cook dinner together", type: .Food)]
-    private var monthIndex = 0
+    @Published var month: Date = .now
+    @Published var dates: [Idea] = [
+        Idea(title: "Cook a meal", desc: "Cook lunch together", type: .Food)
+    ]
     
-    func changeMonth(direction: Int) {
-        monthIndex += direction < 0 ? -1 : 1
-        monthIndex %= 12
-        month = months[monthIndex]
+    init() {
+        month = firstOfCurrentMonth()
+    }
+    
+    
+    func nextMonth() {
+        month = Calendar.current.date(byAdding: .month, value: 1, to: month)!
+    }
+    
+    func prevMonth() {
+        month = Calendar.current.date(byAdding: .month, value: -1, to: month)!
+    }
+    
+    private func firstOfCurrentMonth() -> Date {
+        Calendar.current.date(bySetting: .day, value: 1, of: .now)!
     }
 }
-
 
 struct Day: Hashable {
     var day: Int
@@ -24,18 +35,3 @@ struct Idea: Hashable {
     var desc: String
     var type: DateType
 }
-
-private var months: [String] = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-]
