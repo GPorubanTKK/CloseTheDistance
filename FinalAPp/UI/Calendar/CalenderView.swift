@@ -5,10 +5,6 @@ struct CalenderView: View {
     @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     @State var selectedDate: Date = .now
     
-    init() {
-        selectedDate = vm.month
-    }
-    
     
     let dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -110,6 +106,8 @@ struct CalenderView: View {
                     }
                 }
             }
+        }.onAppear {
+            selectedDate = vm.month
         }
     }
 }
