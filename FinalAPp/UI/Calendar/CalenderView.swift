@@ -2,6 +2,8 @@ import SwiftUI
 
 struct CalenderView: View {
     @StateObject var vm: CalendarVM = CalendarVM()
+    @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
+    @State var selectedDate: Date = .now
     
     
     let dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
@@ -43,10 +45,14 @@ struct CalenderView: View {
                                 HStack {
                                     ForEach(0 ..< 7) { _ in
                                         if(daysOfMonth.contains(dowCounter)) {
-                                            CalendarDay(day: dowCounter, dayType: .Free)
+                                            let date = Calendar.current.date(byAdding: .day, value: dowCounter, to: vm.month)!
+                                            CalendarDay(day: dowCounter, dayType: appVm.plannedDates[date] != nil ? .Date : .Free)
                                                 .frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7)
+                                                .onTapGesture {
+                                                    selectedDate = date
+                                                }
                                         } else {
-                                            Image(systemName: "circle").frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7)
+                                            Rectangle().foregroundStyle(.clear).frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7)
                                         }
                                         let _ = dowCounter += 1
                                     }
@@ -55,7 +61,13 @@ struct CalenderView: View {
                         }.padding([.top])
                     }
                     HStack {
-                        Text("Date Ideas")
+                        if(appVm.plannedDates[selectedDate] == nil) {
+                            Text("Date Ideas For")
+                            Text(selectedDate, format: .dateTime.month().year().day())
+                        } else {
+                            Text("Date Planned For")
+                            Text(selectedDate, format: .dateTime.month().year().day())
+                        }
                         Spacer()
 //                        Button {
 //                            //TODO
@@ -70,12 +82,25 @@ struct CalenderView: View {
 //                            }.fixedSize()
 //                        }
                     }.padding()
-                    ScrollView {
-                        LazyVStack(alignment: .leading) {
-                            ForEach(vm.dates, id: \.title) { idea in
-                                DateIdea(title: idea.title, desc: idea.desc, type: idea.type)
-                            }
-                        }.padding()
+                    if(appVm.plannedDates[selectedDate] == nil) {
+                        ScrollView {
+                            LazyVStack(alignment: .leading) {
+                                ForEach(appVm.generatedIdeas.shuffled().prefix(3), id: \.title) { idea in
+                                    HStack {
+                                        DateIdea(title: idea.title, desc: idea.desc, type: idea.type)
+                                        Spacer()
+                                        Button {
+                                            appVm.planDate(selectedDate, idea)
+                                        } label: {
+                                            Text("Plan")
+                                        }
+                                    }
+                                }
+                            }.padding()
+                        }
+                    } else {
+                        let idea = appVm.plannedDates[selectedDate]!
+                        DateIdea(title: idea.title, desc: idea.desc, type: idea.type)
                     }
                 }
             }
@@ -84,5 +109,6 @@ struct CalenderView: View {
 }
 
 #Preview {
-    CalenderView()
+    @Previewable @State var appvm = CtdViewmodel()
+    CalenderView().environment(appvm)
 }

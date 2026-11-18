@@ -8,10 +8,10 @@ struct CalendarDay : View {
         ZStack {
             Circle().foregroundStyle(.gray.opacity(0.2)).shadow(radius: 1)
             VStack {
-                Text("\(day)").font(.system(size: 10))
+                Text("\(day)").fontWidth(.condensed)
                 Image(systemName: dayType.rawValue).font(.system(size: 10))
             }.padding()
-        }.fixedSize()
+        }
     }
 }
 
@@ -23,5 +23,5 @@ enum DayType: String {
 }
 
 #Preview {
-    CalendarDay(day: 12, dayType: .Holiday)
+    CalendarDay(day: 30, dayType: .Holiday)
 }
