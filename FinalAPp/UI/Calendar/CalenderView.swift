@@ -5,6 +5,10 @@ struct CalenderView: View {
     @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     @State var selectedDate: Date = .now
     
+    init() {
+        selectedDate = vm.month
+    }
+    
     
     let dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -23,12 +27,14 @@ struct CalenderView: View {
                             HStack {
                                 Button {
                                     vm.prevMonth()
+                                    selectedDate = vm.month
                                 } label: {
                                     Text("<")
                                 }
                                 Text(vm.month, format: .dateTime.month().year())
                                 Button {
                                     vm.nextMonth()
+                                    selectedDate = vm.month
                                 } label: {
                                     Text(">")
                                 }
@@ -40,19 +46,19 @@ struct CalenderView: View {
                             }
                             let daysOfMonth = Calendar.current.range(of: .day, in: .month, for: vm.month)!
                             let dc = Calendar.current.dateComponents([.weekday, .day], from: vm.month)
-                            var dowCounter = 2 - dc.weekday!
+                            var dowCounter = 2-dc.weekday!
                             ForEach(0 ..< 6) { _ in
                                 HStack {
                                     ForEach(0 ..< 7) { _ in
                                         if(daysOfMonth.contains(dowCounter)) {
-                                            let date = Calendar.current.date(byAdding: .day, value: dowCounter, to: vm.month)!
+                                            let date = Calendar.current.date(byAdding: .day, value: dowCounter-1, to: vm.month)!
                                             CalendarDay(day: dowCounter, dayType: appVm.plannedDates[date] != nil ? .Date : .Free)
-                                                .frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7)
+                                                .frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7.5)
                                                 .onTapGesture {
                                                     selectedDate = date
                                                 }
                                         } else {
-                                            Rectangle().foregroundStyle(.clear).frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7)
+                                            Rectangle().foregroundStyle(.clear).frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7.5)
                                         }
                                         let _ = dowCounter += 1
                                     }

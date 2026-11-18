@@ -4,26 +4,14 @@ struct WidgetsView: View {
     @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     
     var body: some View {
-        VStack {
-            Text("Activity Center").bold()
+        GeometryReader { gp in
             VStack {
-                Text("This Or That?")
-                HStack {
-                    Button {
-                        
-                    } label: {
-                        
-                    }
-                    Button {
-                        
-                    } label: {
-                        
-                    }
+                Text("Activity Center").bold()
+                ThisOrThat().padding().frame(height: gp.size.height / 2)
+                VStack {
+                    Text("Daily Doodle")
+                    Text("Coming Soon")
                 }
-            }
-            VStack {
-                Text("Daily Doodle")
-                Text("Coming Soon")
             }
         }
     }
