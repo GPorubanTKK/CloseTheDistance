@@ -11,7 +11,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DD8F596930AB93DA00A0B4C2 /* Exceptions for "FinalAPp" folder in "FinalApp" target */ = {
+		DD8F596930AB93DA00A0B4C2 /* Exceptions for "FinalApp" folder in "FinalApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Assets.xcassets,
@@ -21,12 +21,12 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		000000000000000000000010 /* FinalAPp */ = {
+		000000000000000000000010 /* FinalApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				DD8F596930AB93DA00A0B4C2 /* Exceptions for "FinalAPp" folder in "FinalApp" target */,
+				DD8F596930AB93DA00A0B4C2 /* Exceptions for "FinalApp" folder in "FinalApp" target */,
 			);
-			path = FinalAPp;
+			path = FinalApp;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -43,7 +43,7 @@
 		000000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				000000000000000000000010 /* FinalAPp */,
+				000000000000000000000010 /* FinalApp */,
 				000000000000000000000020 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,7 +70,7 @@
 			buildRules = (
 			);
 			fileSystemSynchronizedGroups = (
-				000000000000000000000010 /* FinalAPp */,
+				000000000000000000000010 /* FinalApp */,
 			);
 			name = FinalApp;
 			productName = MyApp;
