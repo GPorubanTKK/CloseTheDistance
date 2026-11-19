@@ -1,69 +1,97 @@
 import SwiftUI
 
 struct DashboardView: View {
+    
+    
     var body: some View {
         
-        VStack {
-            HStack{
-                VStack (alignment: .leading, spacing: 4){
-                    
-                    Text("Couple Name")
-                        .font(.title2)
-                        .foregroundStyle(.secondary)
-                    
-                    Text("Jane & Bingly")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    
+        let backgroundGradient = LinearGradient(
+            colors: [
+                Color(red: 0.15, green: 0.1, blue: 0.5), 
+                Color(red: 0.48, green: 0.10, blue: 0.40)
+            ],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        ZStack {
+        
+            backgroundGradient
+                .ignoresSafeArea()
+            
+            VStack(spacing: 10) {
+                
+                
+                // Header
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Couple Name")
+                            .font(.title2)
+                            .foregroundStyle(.secondary)
+                            .foregroundStyle(Color.white)
+
+                        Text("Jane & Bingley")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundStyle(Color.white)
+
+                    }
+                    Spacer()
                 }
+                .padding(.horizontal)
                 
                 
+                DistanceCardView()
                 
-                Spacer()
-            }
-            .padding()
-            
-            Spacer()
-            
-            VStack(alignment: .leading, spacing: 4){
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(red: 0.2, green: 0.5, blue: 0.5))
-                    .scaledToFit()
-                    .padding()
-                
-                
+                //Notification Section
+                VStack(alignment: .center, spacing: 8) {
+                    HStack {
+                        Text("Notifications")
+                            .font(.title)
+                            .foregroundStyle(Color.white)
+                            .fontWeight(.bold)
+                            
+                        Spacer()
+                        Button("Clear") {
+                            // Clear action
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.capsule)
+                        .controlSize(.regular)
+                    }
+                    .padding(.horizontal)
                     
-                Spacer()
-            }
-            VStack (alignment: .center, spacing: 4){
-                HStack{
-                    Text("Notifications")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    Button("Clear") { }
-                            .buttonStyle(.borderedProminent)
-                            .buttonBorderShape(.capsule)
-                            .controlSize(.large)
-                }
-                
-                Spacer()
-                ScrollView{
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color(red: 0.2, green: 0.5, blue: 0.5))
-                        .scaledToFit()
-                        .padding()
+                    NotificationView()
                 }
             }
-            
-            
+            .padding(.top)
         }
-        
-        
-        
+    }
+}
+
+struct AvatarBadge: View {
+    let initial: String
+    let color: Color
+    
+    var body: some View {
+        ZStack {
+            Circle()
+                .fill(color)
+            Circle()
+                .stroke(Color.white.opacity(0.85), lineWidth: 2)
+            Text(initial)
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+        }
+        .frame(width: 34, height: 34)
+        .padding(.top)
+              // Forces default text like "Jane & Bingley" and "Notifications" to stay crisp white
         
     }
 }
+
+
+
+
 
 #Preview {
     DashboardView()
