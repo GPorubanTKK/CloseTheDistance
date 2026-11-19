@@ -48,7 +48,7 @@ struct CalenderView: View {
                                     ForEach(0 ..< 7) { _ in
                                         if(daysOfMonth.contains(dowCounter)) {
                                             let date = Calendar.current.date(byAdding: .day, value: dowCounter-1, to: vm.month)!
-                                            CalendarDay(day: dowCounter, dayType: appVm.plannedDates[date] != nil ? .Date : .Free)
+                                            CalendarDay(day: dowCounter, dayType: vm.plannedDates[date] != nil ? .Date : .Free)
                                                 .frame(width: gp.size.width / 9, height: gp.size.height / 3 / 7.5)
                                                 .onTapGesture {
                                                     selectedDate = date
@@ -63,7 +63,7 @@ struct CalenderView: View {
                         }.padding([.top])
                     }
                     HStack {
-                        if(appVm.plannedDates[selectedDate] == nil) {
+                        if(vm.plannedDates[selectedDate] == nil) {
                             Text("Date Ideas For")
                             Text(selectedDate, format: .dateTime.month().year().day())
                         } else {
@@ -84,7 +84,7 @@ struct CalenderView: View {
 //                            }.fixedSize()
 //                        }
                     }.padding()
-                    if(appVm.plannedDates[selectedDate] == nil) {
+                    if(vm.plannedDates[selectedDate] == nil) {
                         ScrollView {
                             LazyVStack(alignment: .leading) {
                                 ForEach(appVm.generatedIdeas.shuffled().prefix(3), id: \.title) { idea in
@@ -92,7 +92,7 @@ struct CalenderView: View {
                                         DateIdea(title: idea.title, desc: idea.desc, type: idea.type)
                                         Spacer()
                                         Button {
-                                            appVm.planDate(selectedDate, idea)
+                                            vm.planDate(selectedDate, idea)
                                         } label: {
                                             Text("Plan")
                                         }
@@ -101,7 +101,7 @@ struct CalenderView: View {
                             }.padding()
                         }
                     } else {
-                        let idea = appVm.plannedDates[selectedDate]!
+                        let idea = vm.plannedDates[selectedDate]!
                         DateIdea(title: idea.title, desc: idea.desc, type: idea.type)
                     }
                 }

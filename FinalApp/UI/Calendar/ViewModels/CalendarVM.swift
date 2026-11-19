@@ -6,11 +6,15 @@ class CalendarVM: ObservableObject {
     @Published var dates: [Idea] = [
         Idea(title: "Cook a meal", desc: "Cook lunch together", type: .Food)
     ]
+    @Published var plannedDates: [Date: Idea] = [:]
     
     init() {
         month = firstOfCurrentMonth()
     }
     
+    func planDate(_ date: Date, _ idea: Idea) {
+        plannedDates[date] = idea
+    }
     
     func nextMonth() {
         month = Calendar.current.date(byAdding: .month, value: 1, to: month)!
