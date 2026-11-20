@@ -1,5 +1,5 @@
 import Foundation
-struct NotificationItem: Identifiable, Hashable, Codable {
+struct NotificationItem: CtData {
     var id = UUID()
     var title: String
     var message: String = ""
