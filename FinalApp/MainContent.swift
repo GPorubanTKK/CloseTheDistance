@@ -1,9 +1,10 @@
 import Playgrounds
 import SwiftUI
 
-struct ContentView: View {
+struct MainContent: View {
     @State var vm = CtdViewmodel()
     @State var selection = 0
+    @Binding var loggedIn: Bool
     
     var body: some View {
         TabView(selection: $selection) {
@@ -16,7 +17,7 @@ struct ContentView: View {
             WidgetsView().tabItem {
                 Label("Games", systemImage: "widget.small")
             }.tag(2)
-            AccountView().tabItem {
+            AccountView(loggedIn: $loggedIn).tabItem {
                 Label("Account", systemImage: "person.crop.circle")
             }
         }.environment(vm)
@@ -24,5 +25,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    @Previewable @State var li = true
+    MainContent(loggedIn: $li)
 }

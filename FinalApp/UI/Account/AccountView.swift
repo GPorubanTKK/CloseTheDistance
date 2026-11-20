@@ -4,9 +4,11 @@ import UIKit
 struct AccountView: View {
     @State private var notificationsEnabled = true
     @State private var darkModeEnabled = false
+    @Binding var loggedIn: Bool
     
-    init() {
+    init(loggedIn: Binding<Bool>) {
         InitNavTitle()
+        self._loggedIn = loggedIn
     }
     
     var body: some View {
@@ -109,7 +111,7 @@ struct AccountView: View {
                     //Sign out button
                     Section {
                         Button(role: .destructive) {
-                            print("User tapped Sign Out")
+                            loggedIn = false
                         } label: {
                             HStack {
                                 Spacer()
@@ -130,5 +132,6 @@ struct AccountView: View {
 }
 
 #Preview {
-    AccountView()
+    @Previewable @State var li = false
+    AccountView(loggedIn: $li)
 }
