@@ -1,19 +1,9 @@
 import SwiftUI
 
 struct DashboardView: View {
-    
+    @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     
     var body: some View {
-        
-        let backgroundGradient = LinearGradient(
-            colors: [
-                Color(red: 0.15, green: 0.1, blue: 0.5),
-                
-                Color(red: 0.48, green: 0.10, blue: 0.40)
-            ],
-            startPoint: .top,
-            endPoint: .bottom
-        )
         ZStack {
         
             backgroundGradient
@@ -53,7 +43,7 @@ struct DashboardView: View {
                             
                         Spacer()
                         Button("Clear") {
-                            // Clear action
+                            appVm.clearNotifications()
                         }
                         .buttonStyle(.borderedProminent)
                         .buttonBorderShape(.capsule)
@@ -61,7 +51,7 @@ struct DashboardView: View {
                     }
                     .padding(.horizontal)
                     
-                    NotificationView()
+                    NotificationView(notifs: appVm.notifications)
                 }
             }
             .padding(.top)
@@ -95,5 +85,6 @@ struct AvatarBadge: View {
 
 
 #Preview {
-    DashboardView()
+    @Previewable @State var vm = CtdViewmodel()
+    DashboardView().environment(vm)
 }

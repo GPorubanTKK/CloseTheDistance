@@ -26,13 +26,13 @@ struct DateIdea: View {
                     .font(.title)
             }.fixedSize(horizontal: true, vertical: false)
             VStack {
-                Text(title).bold()
-                Text(desc).foregroundStyle(.gray)
+                Text(title).bold().foregroundStyle(.white)
+                Text(desc).foregroundStyle(.white.opacity(0.85))
             }.padding()
             Spacer()
         }.fixedSize(horizontal: false, vertical: true).padding([.trailing]).background {
-            RoundedRectangle(cornerRadius: 10).stroke(.gray, style: StrokeStyle(lineWidth: 1))
-        }.clipShape(RoundedRectangle(cornerRadius: 10)).fixedSize()
+            RoundedRectangle(cornerRadius: 10).foregroundStyle(cardBackground)
+        }.clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 

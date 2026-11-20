@@ -2,10 +2,12 @@ import Foundation
 public import Combine
 
 class ThisOrThatVM: ObservableObject {    
-    @Published var question: String = "Cats or Dogs"
-    @Published var leftOption: String = "Cats"
-    @Published var rightOption: String = "Dogs"
+    @Published var answer: AnswerSet = ("", "", "")
     @Published var choice = -1
+    
+    init() {
+        answer = tOrTs.randomElement()!
+    }
     
     func pickLeft() {
         if(choice < 0) {
@@ -19,3 +21,11 @@ class ThisOrThatVM: ObservableObject {
         }
     }
 }
+
+private let tOrTs: [AnswerSet] = [
+    ("Cats or Dogs", "Cats", "Dogs"),
+    ("Tacos or Pizza", "Tacos", "Pizza"),
+    ("Mountains or Beach", "Mountains", "Beach")
+]
+
+public typealias AnswerSet = (q: String, l: String, r: String)

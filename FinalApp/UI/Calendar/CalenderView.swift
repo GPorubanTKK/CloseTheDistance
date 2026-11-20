@@ -8,8 +8,13 @@ struct CalenderView: View {
     
     let dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
+    init() {
+        InitNavTitle()
+    }
+    
     var body: some View {
         ZStack {
+            backgroundGradient.ignoresSafeArea()
             GeometryReader { gp in
                 VStack {
                     Text("My Calendar")
@@ -17,7 +22,7 @@ struct CalenderView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .frame(height: gp.size.height / 2.5)
                             .padding()
-                            .foregroundStyle(Color(hue: 0, saturation: 0, brightness: 0.9))
+                            .foregroundStyle(cardBackground)
                             .shadow(radius: 2)
                         VStack {
                             HStack {
@@ -34,7 +39,7 @@ struct CalenderView: View {
                                 } label: {
                                     Text(">")
                                 }
-                            }.fixedSize()
+                            }.fixedSize().font(.system(size: 30))
                             HStack {
                                 ForEach(dows, id: \.self) { dow in
                                     Text(dow).bold().frame(width: gp.size.width / 9)
@@ -94,7 +99,7 @@ struct CalenderView: View {
                                         Button {
                                             vm.planDate(selectedDate, idea)
                                         } label: {
-                                            Text("Plan")
+                                            Text("Plan").padding([.leading])
                                         }
                                     }
                                 }
@@ -108,7 +113,7 @@ struct CalenderView: View {
             }
         }.onAppear {
             selectedDate = vm.month
-        }
+        }.foregroundStyle(.white)
     }
 }
 

@@ -14,12 +14,6 @@ struct DistanceCardView: View {
     let nextVisitDate = "Dec 18, 2026"
     let daysUntilVisit = "29 days"
     
-    // Colors sampled from the design
-    let cardBackground = Color(red: 0.16, green: 0.22, blue: 0.27)
-    let coralAccent = Color(red: 0.93, green: 0.45, blue: 0.34)
-    let sageAccent = Color(red: 0.48, green: 0.65, blue: 0.64)
-    
-    
     func getLondonTimeString() -> String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(identifier: "Europe/London")
