@@ -7,7 +7,8 @@ struct DashboardView: View {
         
         let backgroundGradient = LinearGradient(
             colors: [
-                Color(red: 0.15, green: 0.1, blue: 0.5), 
+                Color(red: 0.15, green: 0.1, blue: 0.5),
+                
                 Color(red: 0.48, green: 0.10, blue: 0.40)
             ],
             startPoint: .top,

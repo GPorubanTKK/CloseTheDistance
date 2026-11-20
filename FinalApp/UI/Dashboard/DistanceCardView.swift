@@ -19,6 +19,14 @@ struct DistanceCardView: View {
     let coralAccent = Color(red: 0.93, green: 0.45, blue: 0.34)
     let sageAccent = Color(red: 0.48, green: 0.65, blue: 0.64)
     
+    
+    func getLondonTimeString() -> String {
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "Europe/London")
+        formatter.dateFormat = "h:mm a" //I will add funtionality for a 24 hour clock too
+        return formatter.string(from: Date())
+    }
+    
     var body: some View {
         
         
@@ -30,7 +38,7 @@ struct DistanceCardView: View {
                     Label("\(partnerTimeZon) Local Time", systemImage: "clock.fill")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.85))
-                    Text(partnerTime)
+                    Text(getLondonTimeString())
                         .font(.system(size: 34, weight: .bold, design: .rounded))
                         .foregroundStyle(.white)
                 }
