@@ -64,30 +64,71 @@ struct AccountView: View {
                     // Account sections
                     Section("Account") {
                         NavigationLink(destination: Text("Edit Profile Screen")) {
-                            Label("Edit Profile", systemImage: "pencil")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Edit Profile")
+                                    .foregroundStyle(.white)
+                            } icon: {
+                                Image(systemName: "pencil")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
+
                         NavigationLink(destination: Text("Security & Password Screen")) {
-                            Label("Password & Security", systemImage: "lock")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Password & Security")
+                                    .foregroundStyle(.white)
+                            } icon: {
+                                Image(systemName: "lock")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
+
                         NavigationLink(destination: Text("Billing Details Screen")) {
-                            Label("Subscription", systemImage: "creditcard")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Subscription")
+                                    .foregroundStyle(.white)
+                            } icon: {
+                                Image(systemName: "creditcard")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
+
                         NavigationLink(destination: Text("Location Settings Screen")) {
-                            Label("Location", systemImage: "map")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Location")
+                                    .foregroundStyle(.white)
+                            } icon: {
+                                Image(systemName: "map")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
                     }.listRowBackground(cardBackground)
                     
                     // Preferences Section
                     Section("Preferences") {
                         Toggle(isOn: $notificationsEnabled) {
-                            Label("Allow Notifications", systemImage: "bell")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Allow Notifications")
+                                    .foregroundStyle(Color.white)
+                            } icon: {
+                                Image(systemName: "bell")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
+                        .tint(coralAccent)
+                        
                         NavigationLink(destination: Text("To Be Implemented")) {
-                            Label("Color Scheme", systemImage: "circle.lefthalf.filled")
-                        }.foregroundStyle(coralAccent)
+                            Label {
+                                Text("Color Scheme")
+                                    .foregroundStyle(Color.white)
+                            } icon: {
+                                Image(systemName: "circle.lefthalf.filled")
+                                    .foregroundStyle(coralAccent)
+                            }
+                        }
                     }.listRowBackground(cardBackground)
                     
-                    // 4. Sign Out Action
+                    //Sign out button
                     Section {
                         Button(role: .destructive) {
                             print("User tapped Sign Out")
