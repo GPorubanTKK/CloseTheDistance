@@ -4,6 +4,7 @@ struct ThisOrThat : View {
     @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     
     var body: some View {
+        
         ZStack {
             RoundedRectangle(cornerRadius: 20).foregroundStyle(cardBackground)
             VStack {
@@ -13,12 +14,14 @@ struct ThisOrThat : View {
                     Button {
                         vm.pickLeft()
                         appVm.notify("You answered the This or That")
+                        appVm.shareNotification("\(appVm.account?.name ?? "??") answered the This or That")
                     } label: {
                         ThisOrThatButton(text: vm.answer.l, selected: vm.choice < 1)
                     }.disabled(vm.choice != -1)
                     Button {
                         vm.pickRight()
                         appVm.notify("You answered the This or That")
+                        appVm.shareNotification("\(appVm.account?.name ?? "??") answered the This or That")
                     } label: {
                         ThisOrThatButton(text: vm.answer.r, selected: vm.choice != 0)
                     }.disabled(vm.choice != -1)

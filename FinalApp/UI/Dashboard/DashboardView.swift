@@ -5,7 +5,6 @@ struct DashboardView: View {
     
     var body: some View {
         ZStack {
-        
             backgroundGradient
                 .ignoresSafeArea()
             
@@ -20,7 +19,7 @@ struct DashboardView: View {
                             .foregroundStyle(.secondary)
                             .foregroundStyle(Color.white)
 
-                        Text("Jane & Bingley")
+                        Text("\(appVm.account?.name ?? "??") & \(appVm.partner?.name ?? "??")")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundStyle(Color.white)

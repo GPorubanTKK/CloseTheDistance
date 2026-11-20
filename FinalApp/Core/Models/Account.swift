@@ -5,6 +5,8 @@ struct Account: CtData {
     let partner: UUID
     let plan: AccountPlan
     let timezone: TimeZone
+    let email: String
+    let loc: String
 }
 
 enum AccountPlan: String, Codable, Hashable {

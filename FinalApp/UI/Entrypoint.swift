@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct Entrypoint: View {
-    @State var loggedIn = false
+    @State var vm = CtdViewmodel()
     
     var body: some View {
-        if(loggedIn) {
-            MainContent(loggedIn: $loggedIn)
+        if(vm.account != nil) {
+            MainContent().environment(vm)
         } else {
-            LoginScreen(loggedIn: $loggedIn)
+            LoginScreen().environment(vm)
         }
     }
 }

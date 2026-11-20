@@ -4,11 +4,10 @@ import UIKit
 struct AccountView: View {
     @State private var notificationsEnabled = true
     @State private var darkModeEnabled = false
-    @Binding var loggedIn: Bool
+    @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     
-    init(loggedIn: Binding<Bool>) {
+    init() {
         InitNavTitle()
-        self._loggedIn = loggedIn
     }
     
     var body: some View {
@@ -28,11 +27,11 @@ struct AccountView: View {
                                 .foregroundStyle(coralAccent)
                             
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Jane Bennet")
+                                Text(appVm.account?.name ?? "Name")
                                     .font(.title3)
                                     .fontWeight(.semibold)
                                     .foregroundStyle(Color.white)
-                                Text("jane.Bennet@Longburouh.com")
+                                Text(appVm.account?.email ?? "e@mail.com")
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                                     .foregroundStyle(coralAccent)
@@ -111,7 +110,7 @@ struct AccountView: View {
                     //Sign out button
                     Section {
                         Button(role: .destructive) {
-                            loggedIn = false
+                            appVm.logout()
                         } label: {
                             HStack {
                                 Spacer()
@@ -132,6 +131,6 @@ struct AccountView: View {
 }
 
 #Preview {
-    @Previewable @State var li = false
-    AccountView(loggedIn: $li)
+    @Previewable @State var vm = CtdViewmodel()
+    AccountView().environment(vm)
 }

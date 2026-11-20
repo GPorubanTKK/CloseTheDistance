@@ -1,35 +1,28 @@
 import SwiftUI
 
 struct DistanceCardView: View {
+    @Environment(CtdViewmodel.self) var appVm: CtdViewmodel
     // Sample data matching the screenshot
-    let leftInitial: String = "J"
-    let leftCity: String = "Longburough"
-    let rightInitial: String = "B"
-    let rightCity: String = "Netherfield"
     let distance: Int = 849
     // Sample data that will be replaced
-    let partnerTimeZon = "London"
-    let partnerTime = "3:22 PM"
     let distanceApart = "3,459 miles"
     let nextVisitDate = "Dec 18, 2026"
     let daysUntilVisit = "29 days"
     
     func getLondonTimeString() -> String {
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone(identifier: "Europe/London")
+        formatter.timeZone = appVm.account?.timezone ?? TimeZone(secondsFromGMT: 0)
         formatter.dateFormat = "h:mm a" //I will add funtionality for a 24 hour clock too
         return formatter.string(from: Date())
     }
     
     var body: some View {
-        
-        
         // Top Status Card
         VStack(alignment: .leading, spacing: 20) {
             // Row 1: Local Time
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
-                    Label("\(partnerTimeZon) Local Time", systemImage: "clock.fill")
+                    Label("\(0) Local Time", systemImage: "clock.fill")
                         .font(.subheadline)
                         .foregroundStyle(.white.opacity(0.85))
                     Text(getLondonTimeString())
@@ -48,8 +41,8 @@ struct DistanceCardView: View {
             // city and icons
             HStack {
                 HStack(spacing: 10) {
-                    AvatarBadge(initial: leftInitial, color: coralAccent)
-                    Text(leftCity)
+                    AvatarBadge(initial: String((appVm.account?.name ?? "??").prefix(0)), color: coralAccent)
+                    Text(appVm.account?.loc ?? "??")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
                 }
@@ -57,10 +50,10 @@ struct DistanceCardView: View {
                 Spacer()
                 
                 HStack(spacing: 10) {
-                    Text(rightCity)
+                    Text(appVm.partner?.loc ?? "??")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundColor(.white)
-                    AvatarBadge(initial: rightInitial, color: sageAccent)
+                    AvatarBadge(initial: String((appVm.partner?.name ?? "??").prefix(0)), color: sageAccent)
                 }
             }
             
